@@ -55,7 +55,7 @@ function start() {
 function next() {
     var ps = document.body.getElementsByTagName("p");
     for (var i = 0; i < ps.length; i++) {
-        if ((ps[i].firstChild.checked && ps[i].lastChild.nodeValue === Questions[qcount].answer) === true)  {
+        if (ps[i].firstChild.checked && ps[i].lastChild.nodeValue === Questions[qcount].answer)  {
             score++;
             break;
             
