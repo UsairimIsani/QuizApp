@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="main.css">
     <title>Quiz of Your Life</title>
 </head>
+
 <body>
-    <form id="content" onsubmit="submit();">
-        
-    </form>
+    <div id="start" class="show">
+        <input type="button" value="Start" onclick="start();">
+        <input type="button" value="Create Your own Question." onclick="creator();">
+    </div>
+    <div id="creator" class="hidden">
+        <input type="text" id="ques" placeholder="What is the ...? etc">
+        <input type="text" id="opt1" placeholder="Option # 1">
+        <input type="text" id="opt2" placeholder="Option # 2">
+        <input type="text" id="opt3" placeholder="Option # 3">
+        <input type="text" id="ans" placeholder="The Correct Answer">
+        <input type="button" value="Create" onclick="create();">
+        <input type="button" value="Start" onclick="start();">
+    </div>
+    <div id="quiz" class="hidden"></div>
+    <div id="result" class="hidden"></div>
     <script src="./app.js"></script>
 </body>
+
 </html>

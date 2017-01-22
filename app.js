@@ -1,48 +1,103 @@
-// var question1 = new Question("what is your name?", ["usairim", "huzail", "altaf"], "usairim");
-// document.getElementById('content').innerHTML += question1.question + "<br>";
-// for (i = 0; i < question1.options.length; i++) {
-//     var opt = "";
-//     opt += "<p><input type='radio'  name='options'/>" + question1.options[i] + "</p>";
-//     document.getElementById('content').innerHTML += opt;
-// }
-// document.getElementById('content').innerHTML += "<button onclick='clicked()'>Submit</button>";
-// function Question(question, options, answer) {
-//     this.question = question;
-//     this.options = options;
-//     this.answer = answer;
-// }
-var button = document.getElementById('content').innerHTML = "<input type = 'button' onclick='onStart();' value='Start'/> "
-var questions = { 
-    question1 : {
-        question : "Which mountain is the tallest in the world?",
-        option : ["Nanga Parbat", "k-2" , "Everest"],
-        answer : 2
-    },
-    question2 : {
-        question : "who is the Prime Minister of Pakistan?", 
-        option : ["Mamnoon Hussain", "Nawaz Sharif" , "no one"],
-        answer : 1
-    }
-};
-var countOfQuestions = Object.keys(questions).length;
-// console.log(countOfQuestions);
- 
- function onStart(){
-  document.getElementById('content').innerHTML = questions.question1.question;
-    for(var i = 0 ; i<  questions.question1.option.length; i++){
-         document.getElementById('content').innerHTML += "<p><input type = 'radio'; name = 'question1';/>" + questions.question1.option[i] + "</p>"; 
-    } 
-  document.getElementById('content').innerHTML += "<input type ='Submit' onclick='submit()' value='submit' />"
- }
- function submit(){
-    var ans = document.getElementsByName("question1");
-    for(var i = 0 ; i<  ans.length; i++){
-     if(ans[i].checked = true){
-        break;
-     }
-    }
-     return check(i);
- }
- function check(){
+var qcount = 0;
+var Questions = [{
+    question: "Who is Your Teacher?",
+    options: ["Sir Ali", "Sir Rehan", "None"],
+    answer: "Sir Ali"
+}, ];
+var score = 0;
+var tScore = 1;
 
- }
+function creator() {
+    var divs = document.body.getElementsByTagName("div");
+    for (i = 0; i < divs.length; i++) {
+        divs[i].className = "hidden";
+    }
+    var creator = document.getElementById("creator").className = "show";
+}
+
+function Question(question, options, answer) {
+    this.question = question;
+    this.options = options;
+    this.answer = answer;
+}
+
+function create(){
+    var ques = document.getElementById("ques").value;
+    var opt = []
+    var opt1 = document.getElementById("opt1").value;
+    var opt2 = document.getElementById("opt2").value;
+    var opt3 = document.getElementById("opt3").value;
+    opt.push(opt1, opt2, opt3);
+    var ans = document.getElementById("ans").value;
+    Questions.push(new Question(ques, opt, ans));
+    tScore++;
+    document.getElementById("ques").value = "";
+    document.getElementById("opt1").value = "";
+    document.getElementById("opt2").value = "";
+    document.getElementById("opt3").value = "";
+    document.getElementById("ans").value = "";
+}
+
+function start() {
+    var divs = document.body.getElementsByTagName("div");
+    for (i = 0; i < divs.length; i++) {
+        divs[i].className = "hidden";
+    }
+    var quiz = document.getElementById("quiz");
+    quiz.className = "show";
+    quiz.innerHTML = Questions[qcount].question;
+    for (var i = 0; i < 3; i++) {
+        quiz.innerHTML += "<p><input type='radio' name='Question'>" + Questions[qcount].options[i] + "</p>";
+    }
+    quiz.innerHTML += "<input type='button' onclick='next();' value='Next Question'>";
+}
+
+function next() {
+    var ps = document.body.getElementsByTagName("p");
+    for (var i = 0; i < ps.length; i++) {
+        if (ps[i].firstChild.checked && ps[i].lastChild.nodeValue === Questions[qcount].answer)  {
+            score++;
+            break;
+            
+            }
+        }
+
+        nextQues();
+    }
+
+
+
+
+
+function nextQues() {
+    qcount++;
+    if (tScore === qcount) {
+        result();
+    } else {
+
+        var divs = document.body.getElementsByTagName("div");
+        for (i = 0; i < divs.length; i++) {
+            divs[i].className = "hidden";
+        }
+        var quiz = document.getElementById("quiz");
+        quiz.className = "show";
+        quiz.innerHTML = Questions[qcount].question;
+        for (var i = 0; i < 3; i++) {
+            quiz.innerHTML += "<p><input type='radio' name='Question'>" + Questions[qcount].options[i] + "</p>";
+        }
+        quiz.innerHTML += "<input type='button' onclick='next();' value='Next Question'>";
+    }
+}
+
+function result() {
+    var divs = document.body.getElementsByTagName("div");
+    for (i = 0; i < divs.length; i++) {
+        divs[i].className = "hidden";
+    }
+    var result = document.getElementById("result");
+    result.className = "show";
+    var percentage = (score / tScore) * 100;
+
+    result.innerHTML = "<h1>Total Questions " + tScore + "</h1><h1>Correct Answers " + score + "</h1><h1>Percentage " + percentage + " % </h1>"
+}
+console.log(tScore);
